@@ -1,18 +1,38 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Home</h1>
+    <h2>{{ app }}</h2>
+    <h2>{{ appWithVersion }}</h2>
+    <button @click="handleClick">点击</button>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    //
+  },
+  computed: {
+    ...mapState([
+      'app'
+    ]),
+    ...mapGetters([
+      'appWithVersion'
+    ])
+  },
+  methods: {
+    ...mapMutations([
+      'SET_APP'
+    ]),
+    ...mapActions([
+      'setApp'
+    ]),
+    handleClick () {
+      // this.SET_APP('N')
+      this.setApp()
+    }
   }
 }
 </script>

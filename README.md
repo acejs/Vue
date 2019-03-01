@@ -1,29 +1,16 @@
-# homepage
+# 基于 Vue-cli3 前端基本架构
 
-## Project setup
-```
-npm install
-```
+## 主要插件
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+    vue
+    vue-router
+    axios
+    vuex
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 启动
 
-### Run your tests
-```
-npm run test
-```
+    npm run serve
 
-### Lints and fixes files
-```
-npm run lint
-```
+## 打包
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+    npm run build
