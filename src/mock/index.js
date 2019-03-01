@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import { getUserInfo } from './response/user';
+import { getUserInfo } from './response/user'
 
 Mock.mock(/\/user\/getUserInfo/, 'post', getUserInfo)
 

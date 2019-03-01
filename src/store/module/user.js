@@ -4,20 +4,20 @@ const state = {
 
 const getters = {
   // 第二个参数 getters 第三个参数 rootState
-  userNameWithAge(state) {
+  userNameWithAge (state) {
     return `${state.userName}_25`
   }
 }
 
 const mutations = {
-  SET_USERNAME(state, params) {
+  SET_USERNAME (state, params) {
     state.userName = params.userName
   }
 }
 
 const actions = {
   // { commit, dispatch, getters, rootGetters, rootState, state }
-  updateUserName(context) {
+  updateUserName (context) {
     let newUserName = {
       userName: 'kangkang'
     }
