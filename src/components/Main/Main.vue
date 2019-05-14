@@ -1,7 +1,7 @@
 <template>
   <el-container style="height: 100%;">
     <el-aside width="auto">
-      <side-menu></side-menu>
+      <side-menu :menu-list="menuList"></side-menu>
     </el-aside>
     <el-container>
       <el-header style="padding: 0px;">
@@ -18,6 +18,7 @@
 <script>
 import SideMenu from './SideMenu'
 import HeaderTop from './HeaderTop'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Main',
   components: {
@@ -25,6 +26,9 @@ export default {
     HeaderTop
   },
   computed: {
+    ...mapGetters('app', [
+      'menuList'
+    ]),
     cacheList () {
       return []
     }

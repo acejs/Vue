@@ -1,29 +1,10 @@
-const state = {
-  userName: 'kang'
-}
+const state = {}
 
-const getters = {
-  // 第二个参数 getters 第三个参数 rootState
-  userNameWithAge (state) {
-    return `${state.userName}_25`
-  }
-}
+const getters = {}
 
-const mutations = {
-  SET_USERNAME (state, params) {
-    state.userName = params.userName
-  }
-}
+const mutations = {}
 
-const actions = {
-  // { commit, dispatch, getters, rootGetters, rootState, state }
-  updateUserName (context) {
-    let newUserName = {
-      userName: 'kangkang'
-    }
-    context.commit('SET_USERNAME', newUserName)
-  }
-}
+const actions = {}
 
 export default {
   namespaced: true,

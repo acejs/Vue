@@ -5,7 +5,10 @@
            text-color="#bfcbd9"
            active-text-color="#20a0ff"
            :unique-opened="true">
-
+    <re-submenu v-for="(item, index) in menuList"
+                :key="`${_uid}_${index}`"
+                :index="item.name"
+                :parent="item"></re-submenu>
     <i @click="triggerSideMenu"
        :class="{'collapse-icon': true, 'el-icon-d-arrow-right' : isCollapse, 'el-icon-d-arrow-left' : !isCollapse }"></i>
   </el-menu>
@@ -14,6 +17,12 @@
 import ReSubmenu from './ReSubmenu'
 export default {
   name: 'SideMenu',
+  props: {
+    menuList: {
+      type: Array,
+      default: () => []
+    }
+  },
   data () {
     return {
       isCollapse: false
