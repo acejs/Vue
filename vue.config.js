@@ -16,10 +16,10 @@ module.exports = {
   // 放置生成的静态资源的（相对于outputDir）的目录
   // Type: string | Default: ''
   assetsDir: '',
-  // 指定生成的index.html的输出路径（相对于outputDir），也可以是一个绝对路径
+  // 指定生成的index.html的输出路径（相对于outputDir）；也可以是一个绝对路径
   // Type: string | Default: 'index.html'
   indexPath: 'index.html',
-  // 静态资源文件名带hash
+  // 静态资源文件名是否带 hash
   // Type: boolean | Default: true
   filenameHashing: true,
   chainWebpack: config => {

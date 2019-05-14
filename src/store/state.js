@@ -1,5 +1,3 @@
-const state = {
-  app: 'Vue'
-}
+const state = {}
 
 export default state

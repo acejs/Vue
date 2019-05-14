@@ -1,3 +1,4 @@
-import HttpRequest from '@/lib/axios'
+import HttpRequest from '@/libs/axios'
+
 const axios = new HttpRequest()
 export default axios
