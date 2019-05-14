@@ -4,7 +4,9 @@
            background-color="#324157"
            text-color="#bfcbd9"
            active-text-color="#20a0ff"
-           :unique-opened="true">
+           :unique-opened="true"
+           :default-active="defaultActive"
+           @select="handleSelect">
     <re-submenu v-for="(item, index) in menuList"
                 :key="`${_uid}_${index}`"
                 :index="item.name"
@@ -25,7 +27,8 @@ export default {
   },
   data () {
     return {
-      isCollapse: false
+      isCollapse: false,
+      defaultActive: 'home'
     }
   },
   components: {
@@ -34,7 +37,17 @@ export default {
   methods: {
     triggerSideMenu () {
       this.isCollapse = !this.isCollapse
+    },
+    handleSelect (name) {
+      if (!name) return false
+      this.$router.push({ name })
+    },
+    getDefaultActive () {
+      this.defaultActive = this.$route.name
     }
+  },
+  created () {
+    this.getDefaultActive()
   }
 }
 </script>
