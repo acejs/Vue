@@ -28,11 +28,16 @@ export default {
   data () {
     return {
       isCollapse: false,
-      defaultActive: 'home'
+      defaultActive: this.$config.homeName
     }
   },
   components: {
     ReSubmenu
+  },
+  watch: {
+    '$route' (val) {
+      this.defaultActive = this.$route.name
+    }
   },
   methods: {
     triggerSideMenu () {

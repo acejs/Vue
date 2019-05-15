@@ -4,8 +4,14 @@ import 'element-ui/lib/theme-chalk/index.css'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import config from '@/config'
 
 if (process.env.NODE_ENV !== 'production') require('./mock')
+
+/**
+ * @description 全局注册应用配置
+ */
+Vue.prototype.$config = config
 
 Vue.use(ElementUI)
 

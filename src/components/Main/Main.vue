@@ -18,7 +18,7 @@
 <script>
 import SideMenu from './SideMenu'
 import HeaderTop from './HeaderTop'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'Main',
   components: {
@@ -32,6 +32,23 @@ export default {
     cacheList () {
       return []
     }
+  },
+  methods: {
+    ...mapMutations('app', [
+      'setHomeRoute',
+      'setBreadCrumbList'
+    ])
+  },
+  watch: {
+    '$route' (newRoute) {
+      this.setBreadCrumbList(newRoute)
+    }
+  },
+  mounted () {
+    // 获取主目录
+    this.setHomeRoute()
+    // 设置面包屑
+    this.setBreadCrumbList(this.$route)
   }
 }
 </script>
