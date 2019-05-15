@@ -1,5 +1,6 @@
 <template>
   <el-menu-item :index="index">
+    <i :class="icon"></i>
     <span slot="title">{{ title }}</span>
   </el-menu-item>
 </template>
@@ -12,7 +13,8 @@ export default {
       required: true
     },
     icon: {
-      type: String
+      type: String,
+      default: ''
     },
     title: {
       type: String,

@@ -1,14 +1,9 @@
 <template>
   <div class="header-continer">
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <template v-for="item in breadCrumbList">
-        <el-breadcrumb-item :key="`bread-crumb-${item.name}`"
-                            v-if="item.name === homeName"
-                            :to="{ name: item.name }">{{item.meta.title}}</el-breadcrumb-item>
-        <el-breadcrumb-item v-else
-                            :key="`bread-crumb-${item.name}`">{{item.meta.title}}</el-breadcrumb-item>
-      </template>
-
+      <el-breadcrumb-item v-for="item in breadCrumbList"
+                          :key="`bread-crumb-${item.name}`"
+                          :to="{ path: item.path }">{{item.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
   </div>
 </template>

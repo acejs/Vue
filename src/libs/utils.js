@@ -23,7 +23,7 @@ export const getMenuByRouter = list => {
 
 // 获取面包屑
 export const getBreadCrumbList = (route, homeRoute) => {
-  let homeItem = { ...homeRoute, icon: homeRoute.meta.icon || '' }
+  let homeItem = { ...homeRoute }
   let routeMetched = route.matched
   if (routeMetched.some(item => item.name === homeRoute.name)) return [homeItem]
   let res = routeMetched
@@ -33,7 +33,6 @@ export const getBreadCrumbList = (route, homeRoute) => {
     .map(item => {
       let meta = { ...item.meta }
       let obj = {
-        icon: (item.meta && item.meta.icon) || '',
         name: item.name,
         meta: meta
       }

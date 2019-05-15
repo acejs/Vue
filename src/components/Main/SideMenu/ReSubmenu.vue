@@ -1,7 +1,9 @@
 <template>
   <el-submenu :index="index">
     <template slot="title">
-      <span slot="title">{{ parent.meta.title }}</span>
+      <i :class="parent.meta.icon"></i>
+      <span slot="title"
+            style="margin-left: 8px;">{{ parent.meta.title }}</span>
     </template>
     <template v-for="(item, index) in parent.children">
       <re-submenu v-if="item.children"
@@ -11,7 +13,7 @@
       <menu-item v-else
                  :key="`${item.index}_${index}`"
                  :index="item.name"
-                 :icon="item.icon"
+                 :icon="item.meta.icon"
                  :title="item.meta.title"></menu-item>
     </template>
   </el-submenu>
@@ -19,7 +21,7 @@
 <script>
 import MenuItem from './MenuItem'
 export default {
-  name: "ReSubmenu",
+  name: 'ReSubmenu',
   props: {
     parent: {
       type: Object,

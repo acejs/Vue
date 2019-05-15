@@ -31,7 +31,8 @@ export const routes = [
     redirect: '/home',
     component: Main,
     meta: {
-      title: '主页'
+      title: '主页',
+      icon: 'el-icon-s-home'
     },
     children: [
       {
@@ -39,7 +40,8 @@ export const routes = [
         name: 'home',
         component: () => import('@/views'),
         meta: {
-          title: '主页'
+          title: '主页',
+          icon: 'el-icon-s-home'
         }
       }
     ]
@@ -49,7 +51,8 @@ export const routes = [
     name: '1',
     component: Main,
     meta: {
-      title: '1'
+      title: '1',
+      icon: 'el-icon-goods'
     },
     children: [
       {
@@ -57,7 +60,8 @@ export const routes = [
         name: '1-1',
         component: () => import('@/views/1/1-1'),
         meta: {
-          title: '1-1'
+          title: '1-1',
+          icon: 'el-icon-goods'
         }
       },
       {
@@ -65,7 +69,8 @@ export const routes = [
         name: '1-2',
         component: () => import('@/views/1/1-2'),
         meta: {
-          title: '1-2'
+          title: '1-2',
+          icon: 'el-icon-goods'
         }
       }
     ]
@@ -75,7 +80,8 @@ export const routes = [
     name: '2',
     component: Main,
     meta: {
-      title: '2'
+      title: '2',
+      icon: 'el-icon-video-play'
     },
     children: [
       {
@@ -83,7 +89,8 @@ export const routes = [
         name: '2-1',
         component: () => import('@/views/2/2-1'),
         meta: {
-          title: '2-1'
+          title: '2-1',
+          icon: 'el-icon-goods'
         }
       },
       {
@@ -91,7 +98,8 @@ export const routes = [
         name: '2-2',
         component: ParentView,
         meta: {
-          title: '2-2'
+          title: '2-2',
+          icon: 'el-icon-goods'
         },
         children: [
           {
@@ -99,7 +107,8 @@ export const routes = [
             name: '2-2-1',
             component: () => import('@/views/2/2-2/2-2-1'),
             meta: {
-              title: '2-2-1'
+              title: '2-2-1',
+              icon: 'el-icon-goods'
             }
           },
           {
@@ -108,6 +117,7 @@ export const routes = [
             component: () => import('@/views/2/2-2/2-2-2'),
             meta: {
               title: '2-2-2',
+              icon: 'el-icon-goods',
               hideInMenu: true
             }
           }
@@ -118,7 +128,8 @@ export const routes = [
         name: '2-3',
         component: () => import('@/views/2/2-3'),
         meta: {
-          title: '2-3'
+          title: '2-3',
+          icon: 'el-icon-goods'
         }
       }
     ]
