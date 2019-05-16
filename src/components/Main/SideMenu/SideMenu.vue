@@ -5,7 +5,7 @@
            text-color="#bfcbd9"
            active-text-color="#20a0ff"
            :unique-opened="true"
-           :default-active="defaultActive"
+           :default-active="activeMenuName"
            @select="handleSelect">
     <re-submenu v-for="(item, index) in menuList"
                 :key="`${_uid}_${index}`"
@@ -17,6 +17,7 @@
 </template>
 <script>
 import ReSubmenu from './ReSubmenu'
+import { mapState } from 'vuex';
 export default {
   name: 'SideMenu',
   props: {
@@ -28,32 +29,24 @@ export default {
   data () {
     return {
       isCollapse: false,
-      defaultActive: this.$config.homeName
     }
   },
   components: {
     ReSubmenu
   },
-  watch: {
-    '$route' (val) {
-      this.defaultActive = this.$route.name
-    }
+  computed: {
+    ...mapState('app', [
+      'activeMenuName'
+    ])
   },
   methods: {
     triggerSideMenu () {
       this.isCollapse = !this.isCollapse
     },
     handleSelect (name) {
-      if (!name) return false
       this.$router.push({ name })
     },
-    getDefaultActive () {
-      this.defaultActive = this.$route.name
-    }
   },
-  created () {
-    this.getDefaultActive()
-  }
 }
 </script>
 <style lang="less">

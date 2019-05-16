@@ -36,12 +36,14 @@ export default {
   methods: {
     ...mapMutations('app', [
       'setHomeRoute',
-      'setBreadCrumbList'
+      'setBreadCrumbList',
+      'setActiveMenuName'
     ])
   },
   watch: {
     '$route' (newRoute) {
       this.setBreadCrumbList(newRoute)
+      this.setActiveMenuName(newRoute)
     }
   },
   mounted () {
@@ -49,6 +51,8 @@ export default {
     this.setHomeRoute()
     // 设置面包屑
     this.setBreadCrumbList(this.$route)
+    // 获取左侧菜单激活的name
+    this.setActiveMenuName(this.$route)
   }
 }
 </script>

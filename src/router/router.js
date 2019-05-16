@@ -117,6 +117,17 @@ export const routes = [
             component: () => import('@/views/2/2-2/2-2-2'),
             meta: {
               title: '2-2-2',
+              icon: 'el-icon-goods'
+              // hideInMenu: true
+            }
+          },
+          {
+            path: '2-2-2-d',
+            name: '2-2-2-d',
+            component: () => import('@/views/2/2-2/2-2-2-d'),
+            meta: {
+              parentViewName: '2-2-2',
+              title: '2-2-2-d',
               icon: 'el-icon-goods',
               hideInMenu: true
             }

@@ -22,7 +22,7 @@ export const getMenuByRouter = list => {
 }
 
 // 获取面包屑
-export const getBreadCrumbList = (route, homeRoute) => {
+export const getBreadCrumbList = (route, homeRoute, routes) => {
   let homeItem = { ...homeRoute }
   let routeMetched = route.matched
   if (routeMetched.some(item => item.name === homeRoute.name)) return [homeItem]
@@ -31,17 +31,50 @@ export const getBreadCrumbList = (route, homeRoute) => {
       return item.meta === undefined || !item.meta.hideInBread
     })
     .map(item => {
-      let meta = { ...item.meta }
+      if (item.meta && item.meta.parentViewName) {
+        const p = getInfoByParentViewName(routes, route.meta.parentViewName)
+        p.to = p.name
+        return [p, item]
+      } else return item
+    })
+    .reduce((accumulator, currentValue) => {
+      let baseArr = []
+      let currentArr = []
+      !Array.isArray(accumulator)
+        ? (baseArr = [accumulator])
+        : (baseArr = accumulator)
+      !Array.isArray(currentValue)
+        ? (currentArr = [currentValue])
+        : (currentArr = currentValue)
+      return baseArr.concat(currentArr)
+    })
+    .map(item => {
       let obj = {
         name: item.name,
-        meta: meta
+        meta: { ...item.meta },
+        to: item.to
       }
       return obj
     })
-  res = res.filter(item => {
-    return !item.meta.hideInMenu
-  })
-  return [{ ...homeItem, to: homeRoute.path }, ...res]
+  return [{ ...homeItem, to: homeRoute.name }, ...res]
+}
+
+// 通过 parentViewName 获取对应路由的参数
+export const getInfoByParentViewName = (routes, parentViewName) => {
+  let i = -1
+  const len = routes.length
+  let res = {}
+  while (++i < len) {
+    const item = routes[i]
+    if (item.name === parentViewName) {
+      res = item
+      break
+    }
+    if (item.children && item.children.length) {
+      res = getInfoByParentViewName(item.children, parentViewName)
+    }
+  }
+  return res
 }
 
 // 获取路由列表中的根目录
