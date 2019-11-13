@@ -22,16 +22,32 @@ module.exports = {
   // 静态资源文件名是否带 hash
   // Type: boolean | Default: true
   filenameHashing: true,
+
   chainWebpack: config => {
     config.resolve.alias
       .set('@', resolve('src'))
       .set('_c', resolve('src/components'))
       .set('_a', resolve('src/api'))
+      .set('_v', resolve('src/views'))
+    // 项目解析
+    if (process.env.use_analyzer) {
+      config
+        .plugin('webpack-bundle-analyzer')
+        .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+    }
   },
+
   // 打包时不生成 .map 文件
   // Type: boolean | Default: true
   productionSourceMap: false,
+
+  // 开发环境配置代理
   devServer: {
-    // proxy:
+    // port: '',
+    // host: '',
+    // proxy: {
+    //   target: '',
+    //   changeOrigin: true
+    // }
   }
 }

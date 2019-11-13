@@ -7,16 +7,16 @@ export default {
   },
   computed: {
     visible: {
-      get () {
+      get() {
         return this.value
       },
-      set () {
+      set() {
         this.close()
       }
     }
   },
   methods: {
-    close () {
+    close() {
       this.$emit('input', false)
       this.reset()
     }

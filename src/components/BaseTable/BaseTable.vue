@@ -1,9 +1,10 @@
 <template>
   <el-table :data="tableData"
-            style="width: 100%"
             stripe
             @selection-change="handleSelectionChange"
-            v-loading="loading">
+            v-loading="loading"
+            v-bind="$attrs"
+            v-on="$listeners">
 
     <template v-for="(item, index) in tableColumns">
       <el-table-column v-if="item.type && item"
@@ -50,9 +51,9 @@ export default {
       type: Array,
       default: () => []
     },
-    handleSelectionChange: {
-      type: Function,
-      default: () => ({})
+    multipleSelection: {
+      type: Array,
+      default: () => []
     },
     loading: {
       type: Boolean,
@@ -64,6 +65,9 @@ export default {
       let prop = params.row.prop,
         data = params.data[prop];
       return h('div', {}, data);
+    },
+    handleSelectionChange (val) {
+      this.$emit('update:multiple-selection', val)
     }
   }
 }
