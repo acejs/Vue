@@ -2,15 +2,24 @@
 
 ## 主要插件
 
-    vue
-    vue-router
-    axios
-    vuex
+- vue
+- vue-router
+- axios
+- vuex
+- mack
+
+## UI
+
+- element-ui
 
 ## 启动
 
-    npm run serve
+> report serve
 
 ## 打包
 
-    npm run build
+> report build
+
+## 查看大包后文件大小
+
+> yarn report
