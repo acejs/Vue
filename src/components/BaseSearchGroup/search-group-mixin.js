@@ -1,13 +1,13 @@
 export default {
-  data () {
+  data() {
     return {
       filterList: {}
     }
   },
   methods: {
-    doSearch (list) {
+    doSearch(list) {
       this.filterList = list
-      this.pageInfo.index = 1
+      this.pageInfo && (this.pageInfo.index = 1)
       this.getList()
     }
   }

@@ -1,81 +1,80 @@
 <template>
   <div class="base-search-group">
-    <!-- 搜索 -->
-    <el-row v-for="(outerItem, outerIndex) in reInputGroup"
+
+    <el-row v-for="(outerItem, outerIndex) in inlineInputGroup"
             :key="`${_uid}_${outerIndex}`"
-            :class="{rowHidden: outerIndex >= 1 && hideMoreSearch}">
+            :class="{rowHidden: outerIndex > 0 && hideMoreSearch}"
+            :gutter="12">
+
       <el-col v-for="(item, index) in outerItem"
-              :key="`${item.name}_${item.ele}_${index}`"
+              :key="`${item.label}-${index}`"
               :span="oneItemSpan"
-              style="margin-bottom: 18px;">
-        <el-row type="flex"
-                align="middle"
-                justify="space-between">
-          <el-col :span="7"
-                  class="input-title">{{ item.title }}：</el-col>
+              style="margin-bottom: 12px;">
+        <!-- 外部自定义组件 -->
+        <c-expand v-if="item.isComponents"
+                  :components="item.components"
+                  v-model="valueList[item.label]"
+                  :attr="item.attr"
+                  :placeholder="item.placeholder"
+                  :key="`${_uid}-${index}`"></c-expand>
 
-          <el-col :span="16">
+        <component v-else
+                   :key="`${_uid}-${index}`"
+                   :is="item.ele"
+                   :placeholder="item.placeholder"
+                   v-model.trim="valueList[item.label]"
+                   value-format="yyyy-MM-dd HH:mm:ss"
+                   :start-placeholder="item.startPlaceholder"
+                   :end-placeholder="item.endPlaceholder"
+                   :default-time="item.defaultTime"
+                   size="small"
+                   :type="item.type"
+                   :clearable="true"
+                   style="width: 100%;">
 
-            <!-- 自定义搜索框 -->
-            <expand v-if="item.isRender"
-                    v-model="valueList[item.name]"
-                    :render="item.render"
-                    :name="item.name"
-                    :ele="item.ele">
-            </expand>
-
-            <!-- 外部自定义组件 -->
-            <c-expand v-else-if="item.isComponents"
-                      :components="item.components"
-                      :name="item.name"
-                      v-model="valueList[item.name]"></c-expand>
-
-            <!-- 封装的搜索框 -->
-            <component v-else
-                       :is="item.ele"
-                       :type="item.type"
+          <template v-if="item.slot"
+                    :slot="item.slot.name">
+            <component :is="item.slot.ele"
                        :placeholder="item.placeholder"
-                       :clearable="item.clearable || true"
-                       :filterable="item.filterable"
-                       :multiple="item.multiple"
-                       value-format="yyyy-MM-dd HH:mm:ss"
-                       v-model.trim="valueList[item.name]"
-                       :default-time="item.type === 'datetimerange' && ['00:00:00', '23:59:59']"
-                       :picker-options="item.type === 'datetimerange' ?pickerOptions : {}"
+                       v-model.trim="valueList[item.slot.label]"
                        size="small"
-                       style="width: 100%;">
-              <template v-if="item.children">
-                <component v-for="(it, i) in item.children.list"
-                           :key="`${item.name}_${item.children.ele}_${i}`"
-                           :is="item.children.ele"
-                           :label="it.label"
-                           :value="it.value"></component>
+                       :clearable="true"
+                       :style="{width: item.slot.width}">
+              <template v-if="item.slot.children">
+                <component :is="item.slot.children.ele"
+                           v-for="v in item.slot.children.option"
+                           :key="`${_uid}-${v.value}`"
+                           :label="v.label"
+                           :value="v.value"></component>
               </template>
             </component>
+          </template>
 
-          </el-col>
-
-        </el-row>
+          <template v-if="item.children">
+            <component v-for="(it, i) in item.children.list"
+                       :key="`${item.label}_${item.children.ele}_${i}`"
+                       :is="item.children.ele"
+                       :label="it.label"
+                       :value="it.value"></component>
+          </template>
+        </component>
       </el-col>
+
     </el-row>
 
-    <!-- 操作 -->
-    <el-row type="flex"
-            justify="">
-      <el-col :offset="1"
-              :span="12">
-        <slot name="more-action"></slot>
+    <el-row type="flex">
+      <el-col :span="12">
+        <slot name="action"
+              :valueList="valueList"></slot>
       </el-col>
-      <el-col :span="10"
+      <el-col :span="12"
               align="right">
-        <el-button @click="search"
+        <el-button type="primary"
                    size="small"
-                   type="primary"
-                   icon="el-icon-search">搜索</el-button>
-        <el-button @click="resetValueList"
+                   @click="search">搜索</el-button>
+        <el-button type="ghost"
                    size="small"
-                   type="ghost"
-                   icon="el-icon-delete">清空</el-button>
+                   @click="reset">清空</el-button>
         <el-button v-if="showExpandText"
                    type="text"
                    size="small"
@@ -85,23 +84,19 @@
   </div>
 </template>
 <script>
-import clonedeep from 'clonedeep'
-import Expand from './Expand'
+import CloneDeep from 'clonedeep'
 import CExpand from './CExpand'
+import { singleArrayToMultiple } from '@/libs/tools'
 export default {
   name: 'BaseSearchGroup',
   data () {
     return {
       initValueList: {},
       valueList: {},
-      hideMoreSearch: true,
+      hideMoreSearch: true
     }
   },
   props: {
-    value: {
-      type: Object,
-      default: () => ({})
-    },
     inputGroup: {
       type: Array,
       default: () => []
@@ -112,56 +107,47 @@ export default {
     }
   },
   components: {
-    Expand,
     CExpand
   },
   computed: {
     oneItemSpan () {
-      return 24 / this.onelineNum;
+      return 24 / this.onelineNum
     },
     hideSearchText () {
       return this.hideMoreSearch ? '展开更多搜索项' : '收起搜索项';
     },
-    reInputGroup () {
-      const g = this.onelineNum;
-      const len = this.inputGroup.length;
-      const group = Math.floor(this.inputGroup.length / g) + 1;
-      let i = 0;
-      let result = [];
-
-      while (i++ < group) {
-        result.push(this.inputGroup.slice(g * (i - 1), g * i));
-      }
-      return result;
+    inlineInputGroup () {
+      return singleArrayToMultiple(this.inputGroup, this.onelineNum)
     },
     showExpandText () {
-      return this.reInputGroup.length > 1
+      return this.inlineInputGroup.length > 1
     }
   },
   methods: {
     setInitValue () {
       let valueList = {}
       let initValueList = {}
-      this.inputGroup.forEach(val => {
-        valueList[val.name] = val.value
-        initValueList[val.name] = val.value
-      });
-
+      this.inputGroup.forEach(v => {
+        let { label, value, slot: { label: oK, value: oV } = {} } = v
+        valueList[label] = value
+        initValueList[label] = value
+        if (oK) {
+          valueList[oK] = oV
+          initValueList[oK] = oV
+        }
+      })
       this.valueList = valueList
       this.initValueList = initValueList
     },
-    resetValueList () {
-      this.valueList = clonedeep(this.initValueList)
-      this.$emit('input', this.valueList);
-    },
-    toExpand () {
-      this.hideMoreSearch = !this.hideMoreSearch
-    },
-    change (name, val) {
-      this.valueList[name] = val
+    reset () {
+      this.valueList = CloneDeep(this.initValueList)
+      this.$emit('input', this.valueList)
     },
     search () {
       this.$emit('search', this.valueList)
+    },
+    toExpand () {
+      this.hideMoreSearch = !this.hideMoreSearch
     }
   },
   created () {
@@ -173,12 +159,6 @@ export default {
 .base-search-group {
   .rowHidden {
     display: none;
-  }
-  .input-title {
-    font-size: 13px;
-    color: #666;
-    font-weight: bolder;
-    text-align: right;
   }
 }
 </style>

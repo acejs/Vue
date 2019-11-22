@@ -84,11 +84,12 @@ export const routes = [
     children: [
       {
         path: '2-1',
-        name: '2-1',
+        name: 'needCache',
         component: () => import('@/views/2/2-1'),
         meta: {
           title: '2-1',
-          icon: 'el-icon-goods'
+          icon: 'el-icon-goods',
+          needCache: true
         }
       },
       {

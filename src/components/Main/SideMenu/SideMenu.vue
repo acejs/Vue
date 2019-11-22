@@ -44,7 +44,7 @@ export default {
       this.isCollapse = !this.isCollapse
     },
     handleSelect (name) {
-      this.$router.push({ name })
+      this.$router.push({ name }).catch(() => { })
     },
   },
 }

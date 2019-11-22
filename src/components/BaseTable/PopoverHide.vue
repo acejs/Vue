@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     show () {
-      return this.content.slice(0, this.count)
+      return this.content.length > this.count ? `${this.content.slice(0, this.count)}...` : this.content
     },
     disabled () {
       return this.content.length <= this.count

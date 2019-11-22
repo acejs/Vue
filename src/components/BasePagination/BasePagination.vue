@@ -1,9 +1,11 @@
 <template>
   <el-row style="margin-top: 20px;"
           type="flex"
-          align="middle">
+          align="middle"
+          v-if="pageInfo.total > 0">
     <el-col align="right">
       <el-pagination :small="small"
+                     background
                      @current-change="currentChange"
                      @size-change="sizeChange"
                      :layout="layout"

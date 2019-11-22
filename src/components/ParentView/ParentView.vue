@@ -4,12 +4,13 @@
   </keep-alive>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'ParentView',
   computed: {
-    cacheList () {
-      return []
-    }
+    ...mapState('app', [
+      'cacheList'
+    ])
   }
 }
 </script>

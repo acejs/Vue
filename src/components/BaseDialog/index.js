@@ -1,7 +1,2 @@
-import BaseDialog from './BaseDialog'
-import dialogMixin from './dialog-mixin'
-
-export default {
-  dialogMixin,
-  BaseDialog
-}
+export { default as BaseDialog } from './BaseDialog'
+export { default as dialogMixin } from './dialog-mixin'

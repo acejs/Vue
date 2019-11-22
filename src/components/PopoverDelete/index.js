@@ -1,3 +1,1 @@
-import PopoverDelete from './PopoverDelete'
-
-export default PopoverDelete
+export { default as PopoverConfirm } from './PopoverConfirm'

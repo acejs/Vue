@@ -1,7 +1,2 @@
-import BasePagination from './BasePagination'
-import paginationMixin from './pagination-mixin'
-
-export default {
-  BasePagination,
-  paginationMixin
-}
+export { default as BasePagination } from './BasePagination'
+export { default as paginationMixin } from './pagination-mixin'

@@ -1,9 +1,3 @@
-import BaseTable from './BaseTable'
-import tableMixin from './table-mixin'
-import PopoverHide from './PopoverHide'
-
-export default {
-  BaseTable,
-  tableMixin,
-  PopoverHide
-}
+export { default as tableMixin } from './table-mixin'
+export { default as BaseTable } from './BaseTable'
+export { default as PopoverHide } from './PopoverHide'

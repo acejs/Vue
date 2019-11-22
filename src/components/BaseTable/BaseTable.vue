@@ -3,6 +3,7 @@
             stripe
             @selection-change="handleSelectionChange"
             v-loading="loading"
+            ref="baseTable"
             v-bind="$attrs"
             v-on="$listeners">
 
@@ -10,6 +11,7 @@
       <el-table-column v-if="item.type && item"
                        :type="item.type"
                        :width="item.width"
+                       :label="item.label"
                        :key="`${item.type}_${index}`"
                        :selectable="item.selectable">
       </el-table-column>

@@ -1,3 +1,1 @@
-import ParentView from './ParentView'
-
-export default ParentView
+export { default } from './ParentView'

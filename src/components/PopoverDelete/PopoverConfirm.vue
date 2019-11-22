@@ -2,8 +2,9 @@
   <el-popover placement="top"
               width="160"
               v-model="visible"
-              style="margin-left: 4px;">
-    <p>{{ content }}</p>
+              style="margin: 0px 4px;">
+    <p><i class="el-icon-warning"
+         style="color:#F56C6C;" /> {{ content }}</p>
     <div style="text-align: right; margin: 8px 0px 0px">
       <el-button size="mini"
                  type="text"
@@ -13,14 +14,15 @@
                  @click="handleClick(true)">确定</el-button>
     </div>
     <el-button slot="reference"
-               type="danger"
-               size="small"
-               icon="el-icon-delete">删除</el-button>
+               :type="type"
+               :size="size"
+               :icon="icon"
+               :disabled="disabled">{{ action }}</el-button>
   </el-popover>
 </template>
 <script>
 export default {
-  name: 'PopoverDelete',
+  name: 'PopoverConfirm',
   data () {
     return {
       visible: false
@@ -30,12 +32,32 @@ export default {
     content: {
       type: String,
       default: '确定要删除当前内容？'
+    },
+    size: {
+      type: String,
+      default: 'small'
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    action: {
+      type: String,
+      default: '删除'
+    },
+    icon: {
+      type: String,
+      default: ''
+    },
+    type: {
+      type: String,
+      default: 'danger'
     }
   },
   methods: {
     handleClick (type) {
       this.visible = false
-      if (type) this.$emit('delete')
+      type && this.$emit('sure')
     }
   }
 }

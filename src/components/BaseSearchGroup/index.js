@@ -1,7 +1,2 @@
-import BaseSearchGroup from './BaseSearchGroup'
-import searchGroupMixin from './search-group-mixin'
-
-export default {
-  BaseSearchGroup,
-  searchGroupMixin
-}
+export { default as BaseSearchGroup } from './BaseSearchGroup'
+export { default as searchGroupMixin } from './search-group-mixin'

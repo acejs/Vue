@@ -18,7 +18,7 @@
 <script>
 import SideMenu from './SideMenu'
 import HeaderTop from './HeaderTop'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'Main',
   components: {
@@ -26,12 +26,12 @@ export default {
     HeaderTop
   },
   computed: {
+    ...mapState('app', [
+      'cacheList'
+    ]),
     ...mapGetters('app', [
       'menuList'
-    ]),
-    cacheList () {
-      return []
-    }
+    ])
   },
   methods: {
     ...mapMutations('app', [
