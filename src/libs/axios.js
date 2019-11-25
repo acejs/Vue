@@ -63,7 +63,7 @@ class HttpRequest {
     // 创建一个 axios 实例
     const instance = axios.create()
     // 合并全局参数和传入的参数
-    options = Object.assign(this.getInsideConfig(), options)
+    options = Object.assign({}, this.getInsideConfig(), options)
     // 进行拦截操作
     this.interceptors(instance, options.url)
     return instance(options)

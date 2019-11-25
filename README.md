@@ -6,7 +6,7 @@
 - vue-router
 - axios
 - vuex
-- mack
+- mock
 
 ## UI
 
