@@ -1,0 +1,3 @@
+# 忽略目录
+build/
+node_modules/
